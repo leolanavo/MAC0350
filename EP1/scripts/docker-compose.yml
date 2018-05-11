@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  db:
+    build:
+      context: .
+    environment:
+      POSTGRES_USER: 'mac0350'
+      POSTGRES_PASSWORD: 'yourpassword'
+    volumes:
+      - '.:/usr/src/data'
+      - 'db:/var/lib/postregresql/data'
+
+volumes:
+  db:
