@@ -1,0 +1,255 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Projeto Yggdrasil - Parte 1}
+\author{Beatriz Marouelli, Leonardo Lana}
+
+\begin{document}
+\maketitle
+
+\section*{I - Complementando o Modelo Geral}
+
+A primeira parte do EP consiste em completar o modelo do sistema Yggdrasil feito em aula, acrescentando o controle de acesso.
+
+\section*{II - Descrevendo os Componentes do Modelo Geral}
+
+\subsection*{Entidade Regular Usuário}
+
+% A entidade regular Usuário armazena os usuários que estão cadastrados no sistema.
+% Ela possui o atributo Login, que é chave primária e portanto deverá ser NOTNULL,
+% e o atributo Senha, que por liberar o acesso a um perfil e um conjunto de serviços
+% associados a esse perfil, não poderá ter valor NULL.
+
+A entidade regular Usuário armazena os usuários que estão cadastrados no sistema.
+Ela possui o atributo Login, que é chave primária e portanto deverá ser NOTNULL,
+e o atributo Senha, que por liberar o acesso ao sistema não poderá ter valor NULL.
+
+\begin{itemize}
+    \item Login (chave primária)
+    \item Senha
+\end{itemize}
+
+\subsection*{Entidade Regular Perfil}
+
+% A entidade regular Perfil armazena os tipos de perfil através dos quais os
+% usuários terão acesso aos serviços do sistema, sendo possível um usuário possuir
+% mais de um perfil. Essa entidade é composta por Nome, que será um código
+% de identificação do perfil e por ser chave primária deverá ser NOTNULL. (Além de
+% Tipo\_Perfil a entidade terá um atributo Descrição, que irá conter uma pequena
+% explicação dos serviços disponíveis.
+
+A entidade regular Perfil armazena os tipos de perfil através dos quais os
+usuários terão acesso aos serviços do sistema, sendo possível um usuário possuir
+mais de um perfil. Essa entidade é composta por Nome, que será um código
+de identificação do perfil e por ser chave primária deverá ser NOTNULL.
+
+\begin{itemize}
+    \item Nome (chave primária)
+\end{itemize}
+
+\subsection*{Entidade Regular Serviço}
+
+A entidade regular Serviço armazena os tipos de serviço que estão habilitados no
+sistema. Através desses serviços será possível acessar ou manipular os dados
+armazenados, desde que o perfil permita a utilização do serviço. Ela é formada
+por: Nome, que terá um código de identificação diferente pra cada serviço
+e não poderá assumir o valor NULL por ser chave primária; Descrição, que irá conter
+a explicação de quais são os efeitos do serviço no sistema.
+
+\begin{itemize}
+    \item Nome (chave primária)
+    \item Descrição
+\end{itemize}
+
+\subsection*{Entidade Regular Aluno}
+
+% A entidade regular Aluno armazena os dados de cada instância de um aluno do
+% Bacharelado em Ciência da Computação, que tenha sido cadastrado (ou inserido no
+% banco?). Os atributos que compõem a entidade são os seguintes: Nome, que não
+% poderá ser do tipo NULL; N° USP, que é chave primária; Data\_Nascimento e Sexo.
+
+A entidade regular Aluno armazena os dados de cada instância de um aluno do
+Bacharelado em Ciência da Computação, que tenha sido cadastrado. Os atributos que
+compõem a entidade são os seguintes: NUSP, que é chave primária, portanto NOTNULL;
+Nome, que não poderá ser do tipo NULL; Data de Ingresso, que não pode ser NULL,
+e Data de Formatura, que pode ser NULL, para modelar os casos em que um aluno
+saiu do curso antes de se formar.
+
+\begin{itemize}
+    \item NUSP (chave primária)
+    \item Nome
+    \item Data de Ingresso
+    \item Data de Formatura
+\end{itemize}
+
+\subsection*{Entidade Regular Professor}
+
+% A entidade regular Professor armazena os dados de cada instância de um Professor
+% do curso Bach. em Ciência da Computação que tenha se cadastrado no sistema. O
+% professor poderá acompanhar alunos, se estes concordarem, e sugerir planos que
+% incluam disciplinas preferenciais para o desenvolvimento em uma área de pesquisa
+% ou o cumprimento de uma trilha. Além disso, ele pode acessar boa parte dos dados
+% no banco, para verificar a procura de uma disciplina pelos alunos, por exemplo.
+% Ela é composta por Nome, que não poderá ser do tipo NULL; N° USP, que é chave
+% primária; Área\_Pesquisa, que identificará a área de estudo do professor;
+% Data\_Nascimento e Sexo.
+
+A entidade regular Professor armazena os dados de cada instância de um professor
+do Departamento de Ciência da Computação que tenha se cadastrado no sistema. O
+professor poderá acompanhar alunos, se estes concordarem, e sugerir planos que
+incluam disciplinas preferenciais para o desenvolvimento em uma área de pesquisa
+ou o cumprimento de uma trilha. Além disso, ao professor estará associado o
+perfil que permite ele acessar boa parte dos dados no banco, para verificar a
+procura de uma disciplina pelos alunos, por exemplo. Ela é composta por NUSP, que é
+chave primária;  Nome, que não poderá ser do tipo NULL; Área de Pesquisa, que
+identificará a área de estudo do professor.
+
+\begin{itemize}
+    \item NUSP (chave primária)
+    \item Nome
+    \item Área de Pesquisa
+\end{itemize}
+
+\subsection*{Entidade Regular Disciplina}
+
+% A entidade regular Disciplina armazena os dados de cada instância de disciplina
+% oferecida por algum(a) Instituto(Escola) da USP e que estejam disponíveis para
+% o BCC.\ Ela é composta pelos seguintes atributos: Código, que é chave primária;
+% Descrição, contendo uma explicação do que é a disciplina; Local, que irá assumir
+% a sigla do Instituto ou Escola que oferece a disciplina; Ementa, que irá conter
+% uma descrição mais técnica dos assuntos abordados, bibliografia e critérios de
+% avaliação; Créditos, que indicará o número de créditos atribuídos à disciplina;
+% Semestre, que indicará em qual semestre a disciplina será oferecida.
+
+A entidade regular Disciplina armazena os dados de cada instância de disciplina
+oferecida por algum(a) Instituto(Escola) da USP e que estejam disponíveis para
+o BCC. Ela é composta pelos seguintes atributos: Código, que é chave primária;
+Local, que irá assumir a sigla do Instituto ou Escola que oferece a disciplina;
+Ementa, que irá conter uma descrição mais técnica dos assuntos abordados,
+bibliografia e critérios de avaliação; Créditos-Aula, que indicará o número de créditos atribuídos à disciplina; Semestre, que indicará em qual semestre a disciplina será oferecida.
+
+Em particular, cada disciplina irá se especializar em obrigatória, optativa
+optativa eletiva e optativa livre. Por ser uma especialização
+total e disjunta, cada disciplina terá um atributo Aproveitamento, que modelerá
+o código que representa para qual dos três tipos a disciplina irá se
+especializar.
+
+\begin{itemize}
+    \item Código (chave primária)
+    \item Nome
+    \item Ementa
+    \item Créditos-aula
+    \item Créditos-trabalho
+    \item Semestre
+    \item Aproveitamento
+\end{itemize}
+
+\subsection*{Entidade Regular Módulo}
+
+A entidade regular Módulo armazena os dados de cada instância de um módulo de
+uma trilha, que é um conjunto de disciplinas que fazem parte de uma trilha. Cada
+módulo define o conjunto de disciplinas que um aluno deve cumprir para progredir
+na trilha que quer completar. O Módulo terá Nome, que será a chave primária,
+portato será NOTNULL.
+
+\begin{itemize}
+    \item Nome (chave primária)
+\end{itemize}
+
+\subsection*{Entidade Regular Trilha}
+A entidade regular Trilha armazena os dados de cada instância de uma trilha, que
+será um conjunto de módulos de disciplinas. Cada trilha defina uma
+especialização para o aluno do BCC. A Trilha terá Nome, que será a chave
+primária, portanto será NOTNULL.
+
+\begin{itemize}
+    \item Nome (chave primária)
+\end{itemize}
+
+
+\subsection*{Relacionamento Possui}
+O relacionamento Possui  modela a conexão entre as entidades regulares Usuário e
+Perfil. Essa relação permite que um Usuário tenha mais de uma Perfil, e que um
+Perfil pode ser possuido por mais de um Usuário.  A conexão entre essas duas
+entidades define qual o nível de autorização o Usuário terá dentro do sistema.
+
+\subsection*{Relacionamento Usa}
+O relacionamento Usa modela a conexão entre as entidade regulares Perfil e
+Serviço. Essa relação permite que um Serviço esteja associado a mais de um
+Perfil e que um Perfil use múltiplos Serviços. A conexão entre essas dudas
+entidades define quais operações determinado Perfil pode executar no sistema.
+
+\subsection*{Relacionamento Tutora}
+O relacionamento Tutora modela a conexão entre as entidades regulares Aluno e
+Professor. Essa relação permite que um Aluno tenha mais que um Professor como
+seu tutor, e que um Professor tutore vários alunos. A conexão entre essas duas
+entidades permite que um Professor visualize e sugira planejamento para Alunos,
+os quais ele tutora.
+
+\subsection*{Relacionamento Planeja Cursar}
+O relacionamento Planeja Cursar modela a conexão entre as entidades regulares Aluno e
+Disciplina. Essa relação permite que um Aluno planeje cursar diversas matérias,
+e que uma matéria tenha vários alunos planejando cursar ela.
+
+Este relacionamento terá alguns atributos como: Semestre e Ano, que modelam em
+qual ano e semestre o Aluno pretende fazer a matéria; Aproveitamento, que dirá
+como o Aluno pretende aproveitar os créditos daquela matéria; e Aprovado? que
+modela se uma aluno foi ou não aprovado na matéria.
+
+Se o valor de Aprovado? for verdadeiro, então os créditos da matéria serão
+contabilizados na categoria escolhida em Aproveitamento.
+
+Nenhum dos atributos podem ser NULL, e Aprovado? terá o valor padrão de FALSE.
+
+\begin{itemize}
+    \item Semestre
+    \item Ano
+    \item Aproveitamento
+    \item Aprovado?
+\end{itemize}
+
+\subsection*{Relacionamento Forma}
+O relacionamento Forma modela a conexão entre as entidades regulares Módulo e
+Disciplina. Essa relação permite que um Módulo é formado por várias Disciplina,
+e que uma Disciplina faça parte de vários módulos.
+
+\subsection*{Relacionamento Pertence}
+O relacionamento Pertence modela a conexão entre as entidades regulares Módulo e
+Trilha. Essa relação permite que um Módulo pertença a várias trilhas, e que cada
+Trilha tenha vários Módulos.
+
+Este relacionamento terá um atributo: Minímo, que modela a quantidade miníma de
+matérias que um aluno deve cumprir para completar aquele módulo em determinada
+trilha. Este atributo foi colocado na relação, pois o minímo de matérias
+necessárias muda conforme a trilha na qual o módulo está inserido. Este atributo
+não poderá ser NULL.
+
+\begin{itemize}
+    \item Minímo
+\end{itemize}
+
+\section*{III - Restrições de Domínio}
+
+\section*{IV - Funcionalidades Esperadas}
+
+\section*{V - Diagrama Estendido}
+
+\section*{VI - Modelo Lógico}
+
+
+
+\end{document}
