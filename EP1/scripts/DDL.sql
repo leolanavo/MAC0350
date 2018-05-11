@@ -1,12 +1,11 @@
-DROP IF EXISTS yggdrasil;
-CREATE DATABASE yggdrasil;
-\c yggdrasil;
+CREATE DATABASE yggdrasil_bia_lana;
+\c yggdrasil_bia_lana;
 
 
 CREATE TABLE USUARIOS(
-    US_ID        SERIAL PRIMARY KEY     NOT NULL,
-    US_LOGIN     CHAR(320)              NOT NULL,
-    US_PASSWORD  CHAR(12)               NOT NULL
+    US_ID               SERIAL PRIMARY KEY     NOT NULL,
+    US_LOGIN            CHAR(320)              NOT NULL,
+    US_PASSWORD         CHAR(12)               NOT NULL
 );
 
 CREATE TABLE ALUNO(
@@ -50,18 +49,18 @@ CREATE TABLE DISCIPLINA(
 );
 
 CREATE TABLE MODULO(
-    MD_ID               SERIAL PRIMARY KEY     NOT NULL,
-    MD_NOME             CHAR(50)               NOT NULL UNIQUE,
+    MD_ID                  SERIAL PRIMARY KEY     NOT NULL,
+    MD_NOME                CHAR(50)               NOT NULL UNIQUE,
 );
 
 CREATE TABLE TRILHA(
-    TR_ID               SERIAL PRIMARY KEY     NOT NULL,
-    TR_NOME             CHAR(50)               NOT NULL UNIQUE,
+    TR_ID                  SERIAL PRIMARY KEY     NOT NULL,
+    TR_NOME                CHAR(50)               NOT NULL UNIQUE,
 );
 
 CREATE TABLE PERFIL_USA_SERVICO(
-    PERFIL_ID           INT    references PERFIL(PE_ID),
-    SERVICO_ID          INT    references SERVICO(SR_ID)
+    PERFIL_ID              INT    references PERFIL(PE_ID),
+    SERVICO_ID             INT    references SERVICO(SR_ID)
 );
 
 CREATE TABLE OPTATIVA_FORMA_MODULO(
