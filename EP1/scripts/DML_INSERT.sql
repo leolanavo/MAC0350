@@ -3,13 +3,13 @@ INSERT INTO USUARIO
 VALUES
 	('biamarou@gmail.com',   'bccimeusp'),
 	('leolanavo@gmail.com',  'frontehsorte'),
-	('scholl@gmail.com',     'golfinhomexicano'),
-	('seiji@gmail.com',      'seivadearvore'),
-	('victorjoao@gmail.com', 'estadoterminal'),
-	('jef@ime.usp.br',       'melhordba');
-	('renatocf@ime.usp.br',  'westworld');
-	('decio@ime.usp.br',     'modelagem');
-	('gold@ime.usp.br',      'agilegmail');
+	('scholl@gmail.com',     'golfinhomexi'),
+	('seiji@gmail.com',      'seivadearvor'),
+	('victorjoao@gmail.com', 'estadotermin'),
+	('jef@ime.usp.br',       'melhordba'),
+	('renatocf@ime.usp.br',  'westworld'),
+	('decio@ime.usp.br',     'modelagem'),
+	('gold@ime.usp.br',      'agilegmail'),
 	('kon@ime.usp.br',       'smartcities');
 
 INSERT INTO ALUNO
@@ -17,9 +17,9 @@ INSERT INTO ALUNO
 VALUES
 	('9793652', 'Beatriz Figueiredo', '2016', '2019', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='biamarou@gmail.com')),
 	('9793735', 'Leonardo Lana', '2016', '2019', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='leolanavo@gmail.com')),
-	('9793739', 'Bruno Scholl', '2016', '', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='scholl@gmail.com'));
-	('9793739', 'Victor Seiji', '2016', '', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='seiji@gmail.com'));
-	('9793739', 'Victor João', '2016', '2019', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='victorjoao@gmail.com'));
+	('9793739', 'Bruno Scholl', '2016', '', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='scholl@gmail.com')),
+	('9793738', 'Victor Seiji', '2016', '', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='seiji@gmail.com')),
+	('9793730', 'Victor João', '2016', '2019', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='victorjoao@gmail.com'));
 
 INSERT INTO PROFESSOR
 	(PR_NUSP, PR_NOME, PR_AREA, PR_USER_ID)
@@ -56,7 +56,7 @@ VALUES
 	('MAC0328', 'Algoritmos em Grafos', 4, 0, 2, 'IME', 'Algoritmos em Grafos', 1),
 	('MAC0218', 'Técnicas de Programação 2', 4, 2, 1, 'IME', 'Técnicas avançadas de Programação', 1),
 	('MAC0219', 'Programação Paralela', 4, 0, 1, 'IME', 'Programação de ', 2),
-	('MAC0460', 'Aprendizagem Computacional', 4, 0, 1, 'IME', 'O básico de apredizagem computacional', 0),
+	('MAC0460', 'Aprendizagem Computacional', 4, 0, 1, 'IME', 'O básico de apredizagem computacional', 0);
 
 INSERT INTO MODULO
     (MD_NOME)
@@ -88,11 +88,11 @@ VALUES
 INSERT INTO OPTATIVA_FORMA_MODULO
     (OPTATIVA_ID, MODULO_ID)
 VALUES
-    ((SELECT DS_ID FROM PERFIL WHERE DS_CODIGO='MAC0219'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='DESENVOLVIMENTO DE SOFTWARE')),
-    ((SELECT DS_ID FROM PERFIL WHERE DS_CODIGO='MAC0218'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='DESENVOLVIMENTO DE SOFTWARE')),
-    ((SELECT DS_ID FROM PERFIL WHERE DS_CODIGO='MAC0460'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='INTELIGÊNCIA ARTIFICIAL')),
-    ((SELECT DS_ID FROM PERFIL WHERE DS_CODIGO='MAC0460'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='ESTATÍSTICA')),
-    ((SELECT DS_ID FROM PERFIL WHERE DS_CODIGO='MAC0328'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='TEORIA DOS GRAFOS'));
+    ((SELECT DS_ID FROM DISCIPLINA WHERE DS_CODIGO='MAC0219'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='DESENVOLVIMENTO DE SOFTWARE')),
+    ((SELECT DS_ID FROM DISCIPLINA WHERE DS_CODIGO='MAC0218'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='DESENVOLVIMENTO DE SOFTWARE')),
+    ((SELECT DS_ID FROM DISCIPLINA WHERE DS_CODIGO='MAC0460'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='INTELIGÊNCIA ARTIFICIAL')),
+    ((SELECT DS_ID FROM DISCIPLINA WHERE DS_CODIGO='MAC0460'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='ESTATÍSTICA')),
+    ((SELECT DS_ID FROM DISCIPLINA WHERE DS_CODIGO='MAC0328'), (SELECT MD_ID FROM MODULO WHERE MD_NOME='TEORIA DOS GRAFOS'));
 
 INSERT INTO ALUNO_CURSA_DISCIPLINA
     (ALUNO_ID, DISCIPLINA_ID, PRETENDE_SEM, PRETENDE_ANO, STATUS)
@@ -124,9 +124,9 @@ VALUES
 INSERT INTO PROFESSOR_TUTORA_ALUNO
     (PROFESSOR_ID, ALUNO_ID)
 VALUES
-    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='9793735'), (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='jef@ime.usp.br')),
-    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='9793735'), (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='gold@ime.usp.br')),
-    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='9793735'), (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='renatocf@ime.usp.br')),
-    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='9793739'), (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='decio@ime.usp.br')),
-    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='9793739'), (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='jef@ime.usp.br'));
+    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='1234'),    (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793735')),
+    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='5678'),    (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793735')),
+    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='746396'),  (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793735')),
+    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='098765'),  (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793739')),
+    ((SELECT PR_ID FROM PROFESSOR WHERE PR_NUSP='9623935'), (SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793739'));
 
