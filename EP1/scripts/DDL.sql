@@ -1,7 +1,3 @@
-CREATE DATABASE yggdrasil_bia_lana;
-\c yggdrasil_bia_lana;
-
-
 CREATE TABLE IF NOT EXISTS USUARIO(
     US_ID               SERIAL PRIMARY KEY     NOT NULL,
     US_LOGIN            CHAR(320)              NOT NULL,
