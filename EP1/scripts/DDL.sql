@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS ALUNO(
     AL_ID               SERIAL PRIMARY KEY     NOT NULL,
     AL_NUSP             INT                    NOT NULL UNIQUE,
     AL_NOME             CHAR(50)               NOT NULL,
-    AL_DATA_MATRICULA   CHAR(10)               NOT NULL,
-    AL_DATA_FORMATURA   CHAR(10),
+    AL_DATA_MATRICULA   INT                    NOT NULL CHECK(AL_DATA_MATRICULA >= 1970),
+    AL_DATA_FORMATURA   INT                    CHECK(AL_DATA_MATRICULA >= 1974),
     AL_USER_ID          INT                    references USUARIO(US_ID)
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS ALUNO_CURSA_DISCIPLINA(
     ALUNO_ID            INT    references ALUNO(AL_ID),
     DISCIPLINA_ID       INT    references DISCIPLINA(DS_ID),
     PRETENDE_SEM        INT    NOT NULL CHECK(PRETENDE_SEM >= 1 AND PRETENDE_SEM <= 2),
-    PRETENDE_ANO        INT    NOT NULL CHECK(PRETENDE_ANO >= 2000),
+    PRETENDE_ANO        INT    NOT NULL CHECK(PRETENDE_ANO >= 1970),
     STATUS              BOOLEAN,
 
     CONSTRAINT          AL_DI  PRIMARY KEY (ALUNO_ID, DISCIPLINA_ID)
