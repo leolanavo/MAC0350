@@ -15,11 +15,11 @@ VALUES
 INSERT INTO ALUNO
 	(AL_NUSP, AL_NOME, AL_DATA_MATRICULA, AL_DATA_FORMATURA, AL_USER_ID)
 VALUES
-	('9793652', 'Beatriz Figueiredo', '2016', '2019', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='biamarou@gmail.com')),
-	('9793735', 'Leonardo Lana', '2016', '2019', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='leolanavo@gmail.com')),
-	('9793739', 'Bruno Scholl', '2016', '', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='scholl@gmail.com')),
-	('9793738', 'Victor Seiji', '2016', '', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='seiji@gmail.com')),
-	('9793730', 'Victor João', '2016', '2019', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='victorjoao@gmail.com'));
+	('9793652', 'Beatriz Figueiredo', 2016, 2019, (SELECT US_ID FROM USUARIO WHERE US_LOGIN='biamarou@gmail.com')),
+	('9793735', 'Leonardo Lana', 2016, 2019, (SELECT US_ID FROM USUARIO WHERE US_LOGIN='leolanavo@gmail.com')),
+	('9793739', 'Bruno Scholl', 2016, '', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='scholl@gmail.com')),
+	('9793738', 'Victor Seiji', 2016, '', (SELECT US_ID FROM USUARIO WHERE US_LOGIN='seiji@gmail.com')),
+	('9793730', 'Victor João', 2016, 2019, (SELECT US_ID FROM USUARIO WHERE US_LOGIN='victorjoao@gmail.com'));
 
 INSERT INTO PROFESSOR
 	(PR_NUSP, PR_NOME, PR_AREA, PR_USER_ID)
