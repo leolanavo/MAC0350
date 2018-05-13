@@ -1,16 +1,18 @@
--- Todos os alunos que entraram em 2016
+-- Esta query selecionará todos os alunos  que entraram em 2016
 SELECT AL_NOME
 AS NOME_DOS_ALUNOS_QUE_ENTRARAM_EM_2016
-FROM ALUNO WHERE AL_DATA_MATRICULA='2016';
+FROM ALUNO WHERE AL_DATA_MATRICULA=2016;
 
--- Quantos alunos querem fazer a matéria MAC0218
+-- Esta query retornará o número de alunos que estão planejando
+-- fazer MAC0218
 SELECT COUNT(ALUNO_ID),
 AS NUMERO_DE_ALUNOS_QUERENDO_FAZER_UMA_MATERIA
 FROM ALUNO_CURSA_DISCIPLINA
 WHERE DISCIPLINA_ID=(SELECT DS_ID FROM DISCIPLINA
-WHERE DS_CODIGO='MAC0218') AND STATUS=FALSE;
+WHERE DS_CODIGO='MAC0218') AND STATUS=0;
 
--- Os créditos que Leonardo Lana já fez
+-- Quantos créditos o aluno com o NUSP 979373 já cumpriu
+-- durante sua graduação
 SELECT SUM(DS_CREDITO_AULA + DS_CREDITO_TRAB)
 AS SOMA_DOS_CREDITOS_JÁ_FEITOS
 FROM DISCIPLINA WHERE DS_ID=ANY (
@@ -18,26 +20,34 @@ FROM DISCIPLINA WHERE DS_ID=ANY (
     ALUNO_ID=(SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793735') AND
     STATUS=TRUE);
 
--- Se o aluno com NUSP 9793735 pode se formar
+-- Se o aluno com NUSP 9793735 pode se formar,
+-- esta consulta retornará 1 se o aluno puder se formar e 0,
+-- caso contrário. 
+-- Para efeitos de simplicidade, esta consulta assume que para
+-- se formar, um aluno precisa de 5 créditos de matérias obrigatórias
+-- e 3 créditos de eletivas e 0 créditos de livres.
 SELECT COUNT(*) AS PODE_SE_FORMAR
 FROM (SELECT SUM(DS_CREDITO_AULA + DS_CREDITO_TRAB) AS OBRIGATORIA
 FROM DISCIPLINA WHERE DS_ID=ANY (
     SELECT DISCIPLINA_ID FROM ALUNO_CURSA_DISCIPLINA WHERE
     ALUNO_ID=(SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793735') AND
-    STATUS=TRUE) AND DS_APROVEITAMENTO=0) AS TAB1
+    STATUS=2) AND DS_APROVEITAMENTO=0) AS CREDITOS_OBRIGATORIOS
 CROSS JOIN
 (SELECT SUM(DS_CREDITO_AULA + DS_CREDITO_TRAB) AS ELETIVA
 FROM DISCIPLINA WHERE DS_ID=ANY (
     SELECT DISCIPLINA_ID FROM ALUNO_CURSA_DISCIPLINA WHERE
     ALUNO_ID=(SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793735') AND
-    STATUS=TRUE) AND DS_APROVEITAMENTO=1) AS TAB2
+    STATUS=2) AND DS_APROVEITAMENTO=1) AS CREDITOS_ELETIVOS
 WHERE OBRIGATORIA >= 5 AND ELETIVA >= 3;
 
--- Se o aluno com NUSP '9793735' passa na regra de estágio de 20 horas
+-- Se o aluno com NUSP '9793735' passa na regra de estágio de 20 horas,
+-- a consulta retornará 1 se o aluno passar, e 0 caso o contrário.
+-- Novamente, para efeito de simplicidade reduzimos o número de créditos
+-- obrigatórios necessários para um aluno passar na regra de estágio.
 SELECT COUNT(*) AS PODE_ESTAGIAR_20_HORAS
 FROM (SELECT SUM(DS_CREDITO_AULA + DS_CREDITO_TRAB) AS OBRIGATORIA
 FROM DISCIPLINA WHERE DS_ID=ANY (
     SELECT DISCIPLINA_ID FROM ALUNO_CURSA_DISCIPLINA WHERE
     ALUNO_ID=(SELECT AL_ID FROM ALUNO WHERE AL_NUSP='9793735') AND
-    STATUS=TRUE) AND DS_APROVEITAMENTO=0) AS TAB1
+    STATUS=2) AND DS_APROVEITAMENTO=0) AS TAB1
 WHERE OBRIGATORIA >= 3;
