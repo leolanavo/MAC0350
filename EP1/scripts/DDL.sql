@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS USUARIO(
 
 CREATE TABLE IF NOT EXISTS ALUNO(
     AL_ID               SERIAL PRIMARY KEY     NOT NULL,
-    AL_NUSP             INT                    NOT NULL UNIQUE,
+    AL_NUSP             INT                    NOT NULL UNIQUE CHECK(AL_NUSP >= 1000 AND AL_NUSP < 1000000000),
     AL_NOME             CHAR(50)               NOT NULL,
     AL_DATA_MATRICULA   INT                    NOT NULL CHECK(AL_DATA_MATRICULA >= 1970),
     AL_DATA_FORMATURA   INT                    CHECK(AL_DATA_MATRICULA >= 1974),
